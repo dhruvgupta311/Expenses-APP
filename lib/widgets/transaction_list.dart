@@ -11,9 +11,8 @@ class TransactionList extends StatelessWidget{
   Widget build(BuildContext context){
     return   Container(
       height: 400,
-      child:SingleChildScrollView(
-      child: Column(
-              children: transactions.map((tx) {
+      child: ListView (
+              children: transactions.map((tx){
                 return Card(
                   child: Row(
                     children: <Widget>[
@@ -40,14 +39,14 @@ class TransactionList extends StatelessWidget{
                         ),
                         padding: EdgeInsets.all(10),
                           child: Text(
-                            '\$${tx.amount}',
+                            '\$${tx.amount.toStringAsFixed(2)}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: Colors.black,
                             ),
                           ),
-                      ),
+                      ), 
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -70,7 +69,7 @@ class TransactionList extends StatelessWidget{
                 );
               }).toList(),
             ),
-      ),
     );
+
   }
 }
