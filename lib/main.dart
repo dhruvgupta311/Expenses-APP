@@ -2,6 +2,8 @@ import 'package:expenses_app/widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
 import 'models/transaction.dart';
 import './widgets/transaction_list.dart';
+
+import './widgets/chart.dart';
 void main() {
   runApp(MyApp());
 }
@@ -34,6 +36,18 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(
         id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()),
   ];
+ List<Transaction> get _recentTransactions{
+  return _userTransactions.where((tx) {
+    return tx.date.isAfter(
+      DateTime.now().subtract(
+        Duration(days: 7),
+      ),
+      // jo jo transaction 7 day ke andar honge wo wo ki list return hogi
+      // where will return true if tx transaction is having the date after the 7 days (back wale);
+    );
+  }).toList();
+}
+
   void _addNewTransactions(String txTitle,double txAmount){
     final newTx=Transaction(id: DateTime.now().toString(), title: txTitle, amount: txAmount, date: DateTime.now());
   setState((){
@@ -69,21 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Color.fromARGB(255, 27, 187, 215),
-                child: Container(
-                  child: Text('CHART!',
-                  style:TextStyle(fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                  ),  
-                  ),
-                ),
-                elevation: 5,
-              ),
-            ),
+            Chart(_recentTransactions),
         TransactionList(_userTransactions),
           ],
         ),
