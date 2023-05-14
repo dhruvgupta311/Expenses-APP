@@ -11,8 +11,11 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Personal Expenses',
       home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+      ),
     );
   }
 }
@@ -24,7 +27,6 @@ class MyHomePage extends StatefulWidget{
 
 class _MyHomePageState extends State<MyHomePage> {
   String titleInput="";
-
   String amountInput="";
    final List<Transaction> _userTransactions=[
     Transaction(
@@ -70,14 +72,18 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               width: double.infinity,
               child: Card(
-                color: Color.fromARGB(255, 91, 170, 235),
+                color: Color.fromARGB(255, 27, 187, 215),
                 child: Container(
-                  child: Text('CHART!'),
+                  child: Text('CHART!',
+                  style:TextStyle(fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepPurple,
+                  ),  
+                  ),
                 ),
                 elevation: 5,
               ),
             ),
-           ///////////////////////////////
         TransactionList(_userTransactions),
           ],
         ),

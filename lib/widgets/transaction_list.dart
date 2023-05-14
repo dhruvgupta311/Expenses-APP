@@ -11,7 +11,17 @@ class TransactionList extends StatelessWidget{
   Widget build(BuildContext context){
     return   Container(
       height: 400,
-      child: ListView (
+      child: transactions.isEmpty ? Column(
+        children: [
+          Text('No Transaction is added yet!!',style: Theme.of(context).textTheme.titleLarge,),
+          SizedBox(
+            height: 50,
+          ),
+         Container(
+          height: 300,
+          child: Image.asset('assets/images/waiting.png',fit: BoxFit.cover,)),
+        ],
+      ) : ListView (
               children: transactions.map((tx){
                 return Card(
                   child: Row(
@@ -25,7 +35,7 @@ class TransactionList extends StatelessWidget{
                           color: Colors.lightBlue[50],
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: Color.fromARGB(255, 0, 5, 9),
+                            color: Theme.of(context).primaryColorLight,
                             width: 2,
                           ),
                           boxShadow: [
