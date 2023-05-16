@@ -26,8 +26,6 @@ class Chart extends StatelessWidget {
       }
       //wwekday phle sunday hoga phir monday hoga to total sum phle sunday ke sare transaction ke amount ka sum de dega
       // like wise sbhi pichle days ka sum mil jaaaega
-      print(DateFormat.E().format(weekday));
-      print(totalsum);
       return {
         'day': DateFormat.E().format(weekday).substring(0, 1),
         'amount': totalsum,

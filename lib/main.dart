@@ -32,8 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String amountInput="";
    final List<Transaction> _userTransactions=[
     Transaction(
-        id: 't1', title: 'New Shoes', amount: 65.9, date: DateTime.now()),
-    Transaction(
         id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()),
   ];
  List<Transaction> get _recentTransactions{
@@ -73,43 +71,85 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context){
-    return Padding(
-      padding: EdgeInsets.only(top: 24),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Expenses App',),
-          actions: [
-            IconButton(
-              onPressed: ()=>_startAddnewtransaction(context), 
-              icon: Icon(Icons.add),
-              color:Color.fromARGB(255, 38, 25, 74),
+    return SafeArea(
+      child: Container(
+         decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                    'https://images.unsplash.com/photo-1564951434112-64d74cc2a2d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
+        child: Scaffold(
+          backgroundColor:Colors.transparent,
+          appBar: AppBar(
+            title: Text('Expenses App',),
+            actions: [
+              IconButton(
+                onPressed: ()=>_startAddnewtransaction(context), 
+                icon: Icon(Icons.add),
+                color:Color.fromARGB(255, 38, 25, 74),
+                ),
+            ],
+          ),
+          drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                    'https://images.unsplash.com/photo-1564951434112-64d74cc2a2d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Container(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  'Drawer Header',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 51, 46, 52),
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () {
+                // Handle settings option
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.help),
+              title: Text('Help & Feedback'),
+              onTap: () {
+                // Handle help and feedback option
+              },
+            ),
           ],
         ),
-        body: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                    'https://images.unsplash.com/photo-1564951434112-64d74cc2a2d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60'
-                    ),
-                fit: BoxFit.cover,
+          ),
+          body: Container(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Chart(_recentTransactions),
+              TransactionList(_userTransactions,_deleteTransactions),
+                ],
               ),
             ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Chart(_recentTransactions),
-            TransactionList(_userTransactions,_deleteTransactions),
-              ],
-            ),
           ),
+          floatingActionButton: FloatingActionButton(
+            onPressed:  ()=>_startAddnewtransaction(context),
+            child: Icon(Icons.add),
+          ),
+          
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed:  ()=>_startAddnewtransaction(context),
-          child: Icon(Icons.add),
-        ),
-        
       ),
     );
   }

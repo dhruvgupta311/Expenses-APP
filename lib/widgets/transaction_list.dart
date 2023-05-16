@@ -49,7 +49,9 @@ class TransactionList extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.all(6),
                             child: FittedBox(
-                              child: Text('\$${transactions[index].amount}'),
+                              child: Text('\$${transactions[index].amount}',style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),),
                             ),
                           ),
                         ),
@@ -58,7 +60,9 @@ class TransactionList extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         subtitle: Text(
-                          DateFormat.yMMMd().format(transactions[index].date),
+                          DateFormat.yMMMd().format(transactions[index].date),style: TextStyle(
+          fontWeight: FontWeight.bold,color: Colors.black,
+        ),
                         ),
                         trailing: IconButton(
                           icon: Icon(Icons.delete),
