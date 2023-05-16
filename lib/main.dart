@@ -48,14 +48,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }).toList();
 }
 
-  void _addNewTransactions(String txTitle,double txAmount){
-    final newTx=Transaction(id: DateTime.now().toString(), title: txTitle, amount: txAmount, date: DateTime.now());
+  void _addNewTransactions(String txTitle,double txAmount,DateTime _selectedDate){
+    final newTx=Transaction(id: DateTime.now().toString(), title: txTitle, amount: txAmount, date: _selectedDate);
   setState((){
     _userTransactions.add(newTx);
   });
   }
+  void _deleteTransactions(String id){
+    setState(() {
+      _userTransactions.removeWhere((tx) =>tx.id==id);
+    });
+  }
 
-  void _startAddnewtransaction(BuildContext ctx){
+  void _startAddnewtransaction(BuildContext ctx){ 
     showModalBottomSheet(context: ctx, builder: (_){
       return 
       GestureDetector( 
@@ -68,29 +73,43 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter App',),
-        actions: [
-          IconButton(
-            onPressed: ()=>_startAddnewtransaction(context), 
-            icon: Icon(Icons.add),
-            color:Color.fromARGB(255, 38, 25, 74),
-            ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Chart(_recentTransactions),
-        TransactionList(_userTransactions),
+    return Padding(
+      padding: EdgeInsets.only(top: 24),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Expenses App',),
+          actions: [
+            IconButton(
+              onPressed: ()=>_startAddnewtransaction(context), 
+              icon: Icon(Icons.add),
+              color:Color.fromARGB(255, 38, 25, 74),
+              ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed:  ()=>_startAddnewtransaction(context),
-        child: Icon(Icons.add),
+        body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                    'https://images.unsplash.com/photo-1564951434112-64d74cc2a2d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60'
+                    ),
+                fit: BoxFit.cover,
+              ),
+            ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Chart(_recentTransactions),
+            TransactionList(_userTransactions,_deleteTransactions),
+              ],
+            ),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed:  ()=>_startAddnewtransaction(context),
+          child: Icon(Icons.add),
+        ),
+        
       ),
     );
   }
