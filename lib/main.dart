@@ -4,7 +4,7 @@ import 'models/transaction.dart';
 import './widgets/transaction_list.dart';
 
 import './widgets/chart.dart';
-void main() {
+void main(){
   runApp(MyApp());
 }
 
@@ -32,8 +32,29 @@ class _MyHomePageState extends State<MyHomePage> {
   String amountInput="";
    final List<Transaction> _userTransactions=[
     Transaction(
-        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()),
+        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        ),
+         Transaction(
+        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        ),
+         Transaction(
+        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        ),
+         Transaction(
+        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        ),
+         Transaction(
+        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        ),
+         Transaction(
+        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        ),
+         Transaction(
+        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        ),
   ];
+bool showchart=false;
+
  List<Transaction> get _recentTransactions{
   return _userTransactions.where((tx) {
     return tx.date.isAfter(
@@ -71,6 +92,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context){
+    final islandscape=MediaQuery.of(context).orientation==Orientation.landscape;
+      final appBar= AppBar(
+            title: Text('Expenses App',),
+            actions: [
+              IconButton(
+                onPressed: ()=>_startAddnewtransaction(context), 
+                icon: Icon(Icons.add),
+                color:Color.fromARGB(255, 38, 25, 74),
+                ),
+            ],
+          );
+          final txlistWidget=Container(
+                height: (MediaQuery.of(context).size.height-appBar.preferredSize.height-MediaQuery.of(context).padding.top)*0.7,
+                child: TransactionList(_userTransactions,_deleteTransactions)
+                );
     return SafeArea(
       child: Container(
          decoration: BoxDecoration(
@@ -80,19 +116,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   fit: BoxFit.cover,
                 ),
-              ),
+         ),
         child: Scaffold(
           backgroundColor:Colors.transparent,
-          appBar: AppBar(
-            title: Text('Expenses App',),
-            actions: [
-              IconButton(
-                onPressed: ()=>_startAddnewtransaction(context), 
-                icon: Icon(Icons.add),
-                color:Color.fromARGB(255, 38, 25, 74),
-                ),
-            ],
-          ),
+          appBar: appBar,
           drawer: Drawer(
         child: ListView(
           children: <Widget>[
@@ -138,8 +165,32 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Chart(_recentTransactions),
-              TransactionList(_userTransactions,_deleteTransactions),
+                  if(islandscape) Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Show Chart',style: Theme.of(context).textTheme.titleLarge,),
+                      Switch(value: showchart,onChanged: (val){
+                        setState(() {
+                          showchart=val;
+                        });
+                      }),
+                    ],
+                  ),
+                  if(!islandscape) Container(
+                    height: (MediaQuery.of(context).size.height-
+                    appBar.preferredSize.height-
+                    MediaQuery.of(context).padding.top)*0.3,
+                    child: Chart(_recentTransactions)
+                    ),
+                  if(!islandscape) txlistWidget,
+                  if(islandscape)
+                  showchart ? Container(
+                    height: (MediaQuery.of(context).size.height-
+                    appBar.preferredSize.height-
+                    MediaQuery.of(context).padding.top)*0.6,
+                    child: Chart(_recentTransactions)
+                    )
+                    : txlistWidget,
                 ],
               ),
             ),

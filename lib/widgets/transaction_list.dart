@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import '../models/transaction.dart';
@@ -13,7 +14,8 @@ class TransactionList extends StatelessWidget {
     return Container(
       height: 450,
       child: transactions.isEmpty
-          ? Column(
+          ? LayoutBuilder(builder: (ctx,constraints){
+            return Column(
               children: [
                 Text(
                   'No Transaction is added yet!!',
@@ -23,14 +25,15 @@ class TransactionList extends StatelessWidget {
                   height: 50,
                 ),
                 Container(
-                  height: 300,
+                  height: constraints.maxHeight*0.6,
                   child: Image.asset(
                     'assets/images/waiting.png',
                     fit: BoxFit.cover,
                   ),
                 ),
               ],
-            )
+            );
+          })
           : ListView.builder(
               itemBuilder: (ctx, index) {
                 if (index < transactions.length) {

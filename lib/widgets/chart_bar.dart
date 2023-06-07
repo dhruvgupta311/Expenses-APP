@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
@@ -9,18 +10,19 @@ class Chartbar extends StatelessWidget {
   Chartbar(this.label,this.spendingAmount,this. spendingPctOfTotal);
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
+  Widget build(BuildContext context){
+   return LayoutBuilder (builder: (ctx,constraints){
+     return Column(
+      children:[
         Container(
-          height: 20,
+          height: constraints.maxHeight*0.15,
           child: FittedBox(
           child:Text('\$${spendingAmount.toStringAsFixed(0)}'),
           ),
         ),
-        SizedBox(height: 4,),
+        SizedBox(height: constraints.maxHeight*0.05,),
         Container(
-          height: 100,
+          height: constraints.maxHeight*0.6,
           width:15 ,
           child: Stack(children: [
             Container(
@@ -41,9 +43,10 @@ class Chartbar extends StatelessWidget {
             ),
           ],)
           ),
-        SizedBox(height: 4,),
-        Text(label),
+        SizedBox(height: constraints.maxHeight*0.05,),
+        Container(height: constraints.maxHeight*0.15, child: FittedBox(child: Text(label),)),
       ],
     );
+  },);
   }
 }

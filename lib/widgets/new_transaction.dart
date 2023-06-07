@@ -50,110 +50,117 @@ class _NewTransationState extends State<NewTransation> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Title',
-                labelStyle: TextStyle(color: Colors.grey), // Color of the label
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Color.fromARGB(
-                          255, 0, 6, 16)), // Border color for enabled state
-                  borderRadius: BorderRadius.circular(10.0), // Border radius
-                ),
-              ),
-              controller: titleController,
-              onSubmitted: (_) => submitdata,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Amount',
-                labelStyle: TextStyle(color: Colors.grey), // Color of the label
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Color.fromARGB(
-                          255, 1, 7, 17)), // Border color for enabled state
-                  borderRadius: BorderRadius.circular(10.0), // Border radius
-                ),
-              ),
-              controller: amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => submitdata,
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      _selectedDate == null
-                          ? 'No Date Chosen'
-                          : 'Picked Date :  ${DateFormat.yMd().format(_selectedDate)}',
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                    ),
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom+10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Title',
+                  labelStyle: TextStyle(color: Colors.grey), // Color of the label
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromARGB(
+                            255, 0, 6, 16)), // Border color for enabled state
+                    borderRadius: BorderRadius.circular(10.0), // Border radius
                   ),
-                  OutlinedButton(
-                    onPressed: _presentDatePicker,
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                ),
+                controller: titleController,
+                onSubmitted: (_) => submitdata,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Amount',
+                  labelStyle: TextStyle(color: Colors.grey), // Color of the label
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromARGB(
+                            255, 1, 7, 17)), // Border color for enabled state
+                    borderRadius: BorderRadius.circular(10.0), // Border radius
+                  ),
+                ),
+                controller: amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => submitdata,
+              ),
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _selectedDate == null
+                            ? 'No Date Chosen'
+                            : 'Picked Date :  ${DateFormat.yMd().format(_selectedDate)}',
+                        style:
+                            TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    OutlinedButton(
+                      onPressed: _presentDatePicker,
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Color.fromARGB(255, 0, 87, 138)),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        overlayColor: MaterialStateProperty.all<Color>(
+                            Color.fromARGB(255, 0, 87, 138).withOpacity(0.2)),
+                      ),
+                      child: Text(
+                        'Choose Date',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
                       ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Color.fromARGB(255, 0, 87, 138)),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      overlayColor: MaterialStateProperty.all<Color>(
-                          Color.fromARGB(255, 0, 87, 138).withOpacity(0.2)),
-                    ),
-                    child: Text(
-                      'Choose Date',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                submitdata();
-              },
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    side: BorderSide(color: Colors.purple),
+              OutlinedButton(
+                onPressed: () {
+                  submitdata();
+                },
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      side: BorderSide(color: Colors.purple),
+                    ),
+                  ),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 0, 87, 138)),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  overlayColor: MaterialStateProperty.all<Color>(
+                      Color.fromARGB(255, 0, 87, 138).withOpacity(0.2)),
+                ),
+                child: Text(
+                  'Add Transaction',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
                   ),
                 ),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 0, 87, 138)),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                overlayColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 0, 87, 138).withOpacity(0.2)),
-              ),
-              child: Text(
-                'Add Transaction',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
