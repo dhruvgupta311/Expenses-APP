@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:expenses_app/widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'models/transaction.dart';
 import './widgets/transaction_list.dart';
 
@@ -35,22 +38,22 @@ class _MyHomePageState extends State<MyHomePage> {
         id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
         ),
          Transaction(
-        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        id: 't3', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
         ),
          Transaction(
-        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        id: 't4', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
         ),
          Transaction(
-        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        id: 't5', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
         ),
          Transaction(
-        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        id: 't6', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
         ),
          Transaction(
-        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        id: 't7', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
         ),
          Transaction(
-        id: 't2', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
+        id: 't8', title: 'Weekly Groceries', amount: 18, date: DateTime.now()
         ),
   ];
 bool showchart=false;
@@ -117,7 +120,7 @@ bool showchart=false;
                   fit: BoxFit.cover,
                 ),
          ),
-        child: Scaffold(
+         child:Scaffold(
           backgroundColor:Colors.transparent,
           appBar: appBar,
           drawer: Drawer(
@@ -161,37 +164,39 @@ bool showchart=false;
         ),
           ),
           body: Container(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  if(islandscape) Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Show Chart',style: Theme.of(context).textTheme.titleLarge,),
-                      Switch(value: showchart,onChanged: (val){
-                        setState(() {
-                          showchart=val;
-                        });
-                      }),
-                    ],
-                  ),
-                  if(!islandscape) Container(
-                    height: (MediaQuery.of(context).size.height-
-                    appBar.preferredSize.height-
-                    MediaQuery.of(context).padding.top)*0.3,
-                    child: Chart(_recentTransactions)
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    if(islandscape) Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Show Chart',style: Theme.of(context).textTheme.titleLarge,),
+                        Switch.adaptive(value: showchart,onChanged: (val){
+                          setState(() {
+                            showchart=val;
+                          });
+                        }),
+                      ],
                     ),
-                  if(!islandscape) txlistWidget,
-                  if(islandscape)
-                  showchart ? Container(
-                    height: (MediaQuery.of(context).size.height-
-                    appBar.preferredSize.height-
-                    MediaQuery.of(context).padding.top)*0.6,
-                    child: Chart(_recentTransactions)
-                    )
-                    : txlistWidget,
-                ],
+                    if(!islandscape) Container(
+                      height: (MediaQuery.of(context).size.height-
+                      appBar.preferredSize.height-
+                      MediaQuery.of(context).padding.top)*0.3,
+                      child: Chart(_recentTransactions)
+                      ),
+                    if(!islandscape) txlistWidget,
+                    if(islandscape)
+                    showchart ? Container(
+                      height: (MediaQuery.of(context).size.height-
+                      appBar.preferredSize.height-
+                      MediaQuery.of(context).padding.top)*0.6,
+                      child: Chart(_recentTransactions)
+                      )
+                      : txlistWidget,
+                  ],
+                ),
               ),
             ),
           ),

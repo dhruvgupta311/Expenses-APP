@@ -1,3 +1,7 @@
+import 'dart:io';
+import '../widgets/Adaptive.dart';
+import 'package:expenses_app/widgets/Adaptive.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -58,7 +62,7 @@ class _NewTransationState extends State<NewTransation> {
             top: 10,
             left: 10,
             right: 10,
-            bottom: MediaQuery.of(context).viewInsets.bottom+10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -66,7 +70,8 @@ class _NewTransationState extends State<NewTransation> {
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Title',
-                  labelStyle: TextStyle(color: Colors.grey), // Color of the label
+                  labelStyle:
+                      TextStyle(color: Colors.grey), // Color of the label
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                         color: Color.fromARGB(
@@ -83,7 +88,8 @@ class _NewTransationState extends State<NewTransation> {
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Amount',
-                  labelStyle: TextStyle(color: Colors.grey), // Color of the label
+                  labelStyle:
+                      TextStyle(color: Colors.grey), // Color of the label
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                         color: Color.fromARGB(
@@ -104,33 +110,11 @@ class _NewTransationState extends State<NewTransation> {
                         _selectedDate == null
                             ? 'No Date Chosen'
                             : 'Picked Date :  ${DateFormat.yMd().format(_selectedDate)}',
-                        style:
-                            TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    OutlinedButton(
-                      onPressed: _presentDatePicker,
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Color.fromARGB(255, 0, 87, 138)),
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        overlayColor: MaterialStateProperty.all<Color>(
-                            Color.fromARGB(255, 0, 87, 138).withOpacity(0.2)),
-                      ),
-                      child: Text(
-                        'Choose Date',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    )
+                    AdaptiveFlatButton('Choose Date', _presentDatePicker),
                   ],
                 ),
               ),
@@ -147,7 +131,8 @@ class _NewTransationState extends State<NewTransation> {
                   ),
                   backgroundColor: MaterialStateProperty.all<Color>(
                       Color.fromARGB(255, 0, 87, 138)),
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
                   overlayColor: MaterialStateProperty.all<Color>(
                       Color.fromARGB(255, 0, 87, 138).withOpacity(0.2)),
                 ),

@@ -14,29 +14,29 @@ class TransactionList extends StatelessWidget {
     return Container(
       height: 450,
       child: transactions.isEmpty
-          ? LayoutBuilder(builder: (ctx,constraints){
-            return Column(
-              children: [
-                Text(
-                  'No Transaction is added yet!!',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Container(
-                  height: constraints.maxHeight*0.6,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
+          ? LayoutBuilder(builder: (ctx, constraints) {
+              return Column(
+                children: [
+                  Text(
+                    'No Transaction is added yet!!',
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-                ),
-              ],
-            );
-          })
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                    height: constraints.maxHeight * 0.6,
+                    child: Image.asset(
+                      'assets/images/waiting.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              );
+            })
           : ListView.builder(
               itemBuilder: (ctx, index) {
-                if (index < transactions.length) {
+                if (index < transactions.length){
                   return Container(
                     child: Card(
                       elevation: 5,
@@ -44,7 +44,7 @@ class TransactionList extends StatelessWidget {
                         vertical: 8,
                         horizontal: 5,
                       ),
-                      color: Color.fromARGB(255, 202, 226, 239), // Background color inside the card
+                      color: Color.fromARGB(255, 202, 226,239), // Background color inside the card
                       child: ListTile(
                         leading: CircleAvatar(
                           backgroundColor: Colors.deepPurpleAccent,
@@ -52,9 +52,12 @@ class TransactionList extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.all(6),
                             child: FittedBox(
-                              child: Text('\$${transactions[index].amount}',style: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),),
+                              child: Text(
+                                '\$${transactions[index].amount}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -63,19 +66,35 @@ class TransactionList extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         subtitle: Text(
-                          DateFormat.yMMMd().format(transactions[index].date),style: TextStyle(
-          fontWeight: FontWeight.bold,color: Colors.black,
-        ),
+                          DateFormat.yMMMd().format(transactions[index].date),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () => deleteTx(transactions[index].id),
-                          color: Color.fromARGB(255, 112, 4, 115),
-                        ),
+                        trailing: MediaQuery.of(context).size.width > 460
+                            ? ElevatedButton(
+                                onPressed: () =>
+                                    deleteTx(transactions[index].id),
+                                child: Text(
+                                  'Delete',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              )
+                            : IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () =>
+                                    deleteTx(transactions[index].id),
+                                color: Color.fromARGB(255, 112, 4, 115),
+                              ),
                       ),
                     ),
                   );
-                } else {
+                } 
+                else {
                   return null;
                 }
               },
